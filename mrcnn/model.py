@@ -2330,7 +2330,7 @@ class MaskRCNN(object):
             os.makedirs(self.log_dir)
 
         # Loggers
-        csv_logger = CSVLogger('train_log.csv', append = True, separator = ';')
+        csv_logger = CSVLogger('train_log.csv', append = True, separator = ',')
 
         # Callbacks
         callbacks = [
