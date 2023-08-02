@@ -21,6 +21,7 @@ import tensorflow.keras.layers as KL
 import tensorflow.keras.utils as KU
 from tensorflow.python.eager import context
 import tensorflow.keras.models as KM
+from tensorflow.keras.callbacks import CSVLogger
 
 from mrcnn import utils
 
@@ -2328,12 +2329,17 @@ class MaskRCNN(object):
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
 
+        # Loggers
+        csv_logger = CSVLogger('train_log.csv', append = True, separator = ';')
+
         # Callbacks
         callbacks = [
             keras.callbacks.TensorBoard(log_dir=self.log_dir,
                                         histogram_freq=0, write_graph=True, write_images=False),
             keras.callbacks.ModelCheckpoint(self.checkpoint_path,
                                             verbose=0, save_weights_only=True),
+            csv_logger
+            
         ]
 
         # Add custom callbacks to the list
